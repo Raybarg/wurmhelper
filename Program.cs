@@ -9,6 +9,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using wurmhelper.LogReader;
 
+ConsoleColor below = ConsoleColor.DarkRed;
+ConsoleColor above = ConsoleColor.Green;
+int IncrementCount = 0;
+double avgIncrement = 0.0;
+
 if (args.Length < 2)
 {
     Console.WriteLine("Usage: WurmHelper <path> <skill>");
@@ -31,5 +36,17 @@ return 0;
 
 void lr_LogEventOccurred(object? sender, LogEventArgs e)
 {
-    Console.WriteLine(e.Message);
+    avgIncrement = avgIncrement * IncrementCount;
+    IncrementCount++;
+    avgIncrement += e.SkillIncrement;
+    avgIncrement = avgIncrement / IncrementCount;
+    if (e.SkillIncrement < avgIncrement)
+    {
+        Console.ForegroundColor = below;
+    }
+    else
+    {
+        Console.ForegroundColor = above;
+    }
+    Console.WriteLine(e.Message + " ["+ avgIncrement.ToString()+"]");
 }

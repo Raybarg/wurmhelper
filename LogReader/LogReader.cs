@@ -44,6 +44,8 @@ namespace wurmhelper.LogReader
                 FileStream? fs = new(_path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 StreamReader? sr = new(fs);
 
+                fs.Seek(0, SeekOrigin.End);
+
                 while (!cts.IsCancellationRequested)
                 {
                     if (fs != null && sr != null)
@@ -53,15 +55,17 @@ namespace wurmhelper.LogReader
                         {
                             if (line.Contains(_skill))
                             {
-                                // take right side value of line after "to"
-                                int index = line.IndexOf("to");
-                                string skill = line[(index + 3)..];
+                                string skill = line[(line.IndexOf("to") + 3)..];
                                 double skillValue = double.Parse(skill, CultureInfo.InvariantCulture);
                                 double sweetSpot = (skillValue * 0.77) + 23.0;
+                                double increment = double.Parse(line[(line.IndexOf("by") + 3)..line.IndexOf("to")], CultureInfo.InvariantCulture);
+
                                 LogEventArgs e = new()
                                 {
                                     RawLine = line,
-                                    Message = line + " Sweetspot: " + sweetSpot.ToString()
+                                    Message = line + " Sweetspot: " + sweetSpot.ToString("F4"),
+                                    SkillValue = skillValue,
+                                    SkillIncrement = increment
                                 };
                                 OnLogEventOccurred(e);
                             }

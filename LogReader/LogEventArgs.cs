@@ -16,6 +16,8 @@ namespace wurmhelper.LogReader
     {
         public string RawLine { get; set; }
         public string Message { get; set; }
+        public double SkillValue { get; set; }
+        public double SkillIncrement { get; set; }
 
         public LogEventArgs()
         {
