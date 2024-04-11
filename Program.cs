@@ -1,4 +1,10 @@
-﻿using System.Data;
+﻿/*  Copyright (c) 2024, Janne Papula
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree. 
+*/
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Text;
 using wurmhelper.LogReader;
@@ -25,5 +31,5 @@ return 0;
 
 void lr_LogEventOccurred(object? sender, LogEventArgs e)
 {
-    Console.WriteLine(e.RawLine);
+    Console.WriteLine(e.Message);
 }
