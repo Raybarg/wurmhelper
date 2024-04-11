@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "wurmhelper": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\rayba\\wurm\\players\\raybarg\\logs\\_Skills.2024-04.txt \"Weapon smithing\""
+    }
+  }
+}
